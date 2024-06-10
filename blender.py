@@ -2,6 +2,7 @@
 
 import argparse
 from build_template import build_template_from
+from folder_struct import folder_struct
 from rename_files import rename_files
 from replace_in_files import replace_in_files
 
@@ -10,6 +11,16 @@ def main():
     parser = argparse.ArgumentParser(description="Your Command-Line App")
 
     subparsers = parser.add_subparsers(dest="subcommand", help="Choose a subcommand")
+
+    # Subcommand for folder_struct
+    folders_parser = subparsers.add_parser(
+        "folder_struct",
+        description="Create a folder with two files: on file with I prefix for interface and another for it's implementation both with the extension passed in as a param",
+        epilog="Usage: blender folder_struct <extension> <folders>...",
+    )
+
+    folders_parser.add_argument("extension", help="The file extension")
+    folders_parser.add_argument("folders", nargs="+", help="The folder names")
 
     # Subcommand for replace_in_files
     replace_parser = subparsers.add_parser(
@@ -68,6 +79,8 @@ def main():
             args.template_directory,
             args.output_directory,
         )
+    elif args.subcommand == "folder_struct":
+        folder_struct(args.extension, args.folders)
     else:
         parser.print_help()
 
