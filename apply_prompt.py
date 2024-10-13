@@ -44,7 +44,6 @@ def process_file_with_gpt(file_path, file_content, prompt):
                     ],
                 },
             ],
-            max_tokens=1500,
             temperature=0.7,
         )
 
@@ -80,7 +79,7 @@ def process_single_file_with_gpt(file_path, prompt):
     with open(file_path, "r") as f:
         content = f.read()
 
-    gpt_output = process_file_with_gpt(content, prompt)
+    gpt_output = process_file_with_gpt(file_path, content, prompt)
 
     # Overwrite the file with GPT response
     with open(file_path, "w") as f:
